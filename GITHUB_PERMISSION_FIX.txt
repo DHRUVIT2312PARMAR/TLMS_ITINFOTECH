@@ -1,0 +1,122 @@
+╔════════════════════════════════════════════════════════════════════════╗
+║  GitHub Permission Error - Solution                                  ║
+╚════════════════════════════════════════════════════════════════════════╝
+
+ERROR: "Permission to DHRUVIT2312PARMAR/TLMS_ITINFOTECH.git denied"
+
+CAUSE: Either:
+1. Token has expired
+2. Token doesn't have 'repo' scope
+3. Account DHRUVIT2312PARMAR doesn't own the repository
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SOLUTION: Delete Old Token & Generate New One
+═════════════════════════════════════════════════════════════════════════
+
+STEP 1: Delete Old Token
+  1. Go to: https://github.com/settings/tokens
+  2. Find "TLMS_ITINFOTECH" token
+  3. Click "Delete" button
+  4. Confirm deletion
+
+STEP 2: Generate New Token
+  1. Go to: https://github.com/settings/tokens
+  2. Click "Generate new token" (top right)
+  3. Select "Generate new token (classic)"
+  
+  4. Fill in form:
+     Token name: TLMS_ITINFOTECH_2
+     Expiration: Select "No expiration" (or 365 days)
+     Scopes: Check ONLY:
+       ☑ repo (Full control of private repositories)
+  
+  5. Click "Generate token" button at bottom
+  6. Copy the token immediately (appears only once!)
+
+STEP 3: Clear Git Credentials Cache
+  
+  On Windows, run:
+  cmdkey /delete:github.com
+  
+  Or on PowerShell:
+  Remove-Item "$env:APPDATA\Microsoft\Credentials\*github*" -Force -ErrorAction SilentlyContinue
+
+STEP 4: Remove Old Remote & Add New One
+
+  Remove old:
+  git remote remove origin
+  
+  Add new:
+  git remote add origin https://YOUR_NEW_TOKEN@github.com/DHRUVIT2312PARMAR/TLMS_ITINFOTECH.git
+
+  Replace YOUR_NEW_TOKEN with token from STEP 2
+
+STEP 5: Verify & Push
+
+  Verify remote:
+  git remote -v
+  
+  Push:
+  git push -u origin main
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+QUICK COMMAND SEQUENCE
+═════════════════════════════════════════════════════════════════════════
+
+After getting new token, run these in PowerShell:
+
+1. Clear credentials:
+   cmdkey /delete:github.com
+
+2. Remove old remote:
+   git remote remove origin
+
+3. Add new remote (replace YOUR_NEW_TOKEN):
+   git remote add origin https://YOUR_NEW_TOKEN@github.com/DHRUVIT2312PARMAR/TLMS_ITINFOTECH.git
+
+4. Push:
+   git push -u origin main
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IMPORTANT NOTES
+═════════════════════════════════════════════════════════════════════════
+
+✅ Make sure:
+  • Repository TLMS_ITINFOTECH exists on GitHub
+  • Account DHRUVIT2312PARMAR owns it
+  • Token has "repo" scope checked
+  • You're using the EXACT token (copy-paste, no edits)
+
+❌ Don't:
+  • Edit the token after copying
+  • Use old tokens
+  • Share token with anyone
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ALTERNATIVE: Use SSH Instead (No Token Expiry)
+═════════════════════════════════════════════════════════════════════════
+
+If tokens keep failing:
+
+1. Generate SSH key:
+   ssh-keygen -t ed25519 -C "dhruvit@itinfotech.in"
+   (Press Enter for all prompts)
+
+2. Add to GitHub:
+   • Go to: https://github.com/settings/keys
+   • Click "New SSH key"
+   • Copy key from: $env:USERPROFILE\.ssh\id_ed25519.pub
+   • Paste and save
+
+3. Update git remote:
+   git remote remove origin
+   git remote add origin git@github.com:DHRUVIT2312PARMAR/TLMS_ITINFOTECH.git
+
+4. Push:
+   git push -u origin main
+
+═════════════════════════════════════════════════════════════════════════

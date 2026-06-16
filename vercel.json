@@ -2,7 +2,7 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "client/dist",
-  "framework": "react",
+  "framework": "vite",
   "env": {
     "VITE_API_URL": "@vite_api_url"
   },
