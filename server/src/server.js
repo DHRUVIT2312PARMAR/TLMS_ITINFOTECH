@@ -21,8 +21,28 @@ const app = express()
 
 // Security Middleware
 app.use(helmet())
+
+// CORS Configuration - Support both local dev and production
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173', // Vite default
+  process.env.FRONTEND_URL,
+  // Allow all Vercel deployments
+  /^https:\/\/.*\.vercel\.app$/,
+  /^https:\/\/.*\.vercel\.ai$/
+]
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.some(allowed => {
+      if (allowed instanceof RegExp) return allowed.test(origin)
+      return origin === allowed
+    })) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
   credentials: true,
 }))
 

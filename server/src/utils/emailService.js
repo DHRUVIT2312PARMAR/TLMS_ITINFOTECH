@@ -3,6 +3,21 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
+// Get frontend URL with fallback for Vercel
+const getFrontendURL = () => {
+  if (process.env.FRONTEND_URL) {
+    return process.env.FRONTEND_URL
+  }
+  // For Vercel, construct from VERCEL_URL
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`
+  }
+  // Fallback for local development
+  return 'http://localhost:3000'
+}
+
+const FRONTEND_URL = getFrontendURL()
+
 // Create transporter
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -54,7 +69,7 @@ export const sendWelcomeEmail = async (email, name) => {
               </ul>
               
               <p style="margin-top: 30px;">
-                <a href="${process.env.FRONTEND_URL}/dashboard" style="background-color: #0ea5e9; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
+                <a href="${FRONTEND_URL}/dashboard" style="background-color: #0ea5e9; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
                   Go to Dashboard →
                 </a>
               </p>
@@ -133,7 +148,7 @@ export const sendCertificateEmail = async (email, name, certificateData) => {
               </ul>
               
               <p style="margin-top: 30px;">
-                <a href="${process.env.FRONTEND_URL}/certificates" style="background-color: #10b981; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
+                <a href="${FRONTEND_URL}/certificates" style="background-color: #10b981; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
                   View Certificate →
                 </a>
               </p>
@@ -234,7 +249,7 @@ export const sendBatchNotificationEmail = async (email, name, batchName, message
               </div>
               
               <p style="margin-top: 30px;">
-                <a href="${process.env.FRONTEND_URL}/dashboard" style="background-color: #0ea5e9; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
+                <a href="${FRONTEND_URL}/dashboard" style="background-color: #0ea5e9; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
                   View More →
                 </a>
               </p>
