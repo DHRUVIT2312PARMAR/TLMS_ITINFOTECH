@@ -1,0 +1,148 @@
+╔════════════════════════════════════════════════════════════════════════╗
+║           GitHub Push - Solution Guide                               ║
+╚════════════════════════════════════════════════════════════════════════╝
+
+ERROR: "Permission denied" / "403 Unauthorized"
+
+CAUSE: GitHub authentication issue with HTTPS
+
+SOLUTION OPTIONS:
+═════════════════════════════════════════════════════════════════════════
+
+OPTION 1: Use Personal Access Token (Recommended)
+═════════════════════════════════════════════════════════════════════════
+
+Step 1: Generate GitHub Personal Access Token
+  1. Go to: https://github.com/settings/tokens
+  2. Click "Generate new token"
+  3. Give it a name: "TLMS_ITINFOTECH"
+  4. Select scopes:
+     ☑ repo (Full control of private repositories)
+     ☑ write:packages
+     ☑ read:packages
+  5. Click "Generate token"
+  6. Copy the token (save it somewhere safe!)
+
+Step 2: Update Git Remote with Token
+  Replace YOUR_TOKEN with the token you just created:
+
+  git remote set-url origin https://YOUR_TOKEN@github.com/DHRUVIT2312PARMAR/TLMS_ITINFOTECH.git
+
+  Example:
+  git remote set-url origin https://ghp_abc123xyz456@github.com/DHRUVIT2312PARMAR/TLMS_ITINFOTECH.git
+
+Step 3: Push to GitHub
+  git push -u origin main
+
+  You should see:
+  ✅ Enumerating objects: ...
+  ✅ Writing objects: ...
+  ✅ Counting objects: ...
+  ✅ Branch 'main' set up to track remote branch 'main' from 'origin'
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OPTION 2: Use SSH (Alternative)
+═════════════════════════════════════════════════════════════════════════
+
+Step 1: Generate SSH Key (if you don't have one)
+  ssh-keygen -t ed25519 -C "dhruvit@itinfotech.in"
+  
+  Press Enter for all prompts
+  
+  Key saved at: ~/.ssh/id_ed25519
+
+Step 2: Add SSH Key to GitHub
+  1. Go to: https://github.com/settings/keys
+  2. Click "New SSH key"
+  3. Title: "TLMS_ITINFOTECH"
+  4. Paste your public key:
+     cat ~/.ssh/id_ed25519.pub (on Mac/Linux)
+     type $profile\..\.ssh\id_ed25519.pub (on Windows PowerShell)
+  5. Click "Add SSH key"
+
+Step 3: Update Git Remote to SSH
+  git remote set-url origin git@github.com:DHRUVIT2312PARMAR/TLMS_ITINFOTECH.git
+
+Step 4: Push to GitHub
+  git push -u origin main
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OPTION 3: Use GitHub CLI (Easiest)
+═════════════════════════════════════════════════════════════════════════
+
+Step 1: Install GitHub CLI
+  Download: https://cli.github.com/
+
+Step 2: Authenticate
+  gh auth login
+  
+  Follow prompts:
+  • Choose: GitHub.com
+  • Choose: HTTPS
+  • Authenticate: Yes
+  • Choose: Login with web browser
+
+Step 3: Push
+  git push -u origin main
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+RECOMMENDED: Option 1 (Personal Access Token)
+═════════════════════════════════════════════════════════════════════════
+
+Why:
+✅ Works on Windows, Mac, Linux
+✅ No SSH setup needed
+✅ Can be revoked anytime
+✅ Can set expiration date
+
+Steps (Quick):
+1. Go to: https://github.com/settings/tokens
+2. Click: "Generate new token (classic)"
+3. Name: "TLMS_ITINFOTECH"
+4. Scope: Check "repo"
+5. Generate & Copy token
+6. In PowerShell, run:
+   git remote set-url origin https://YOUR_TOKEN@github.com/DHRUVIT2312PARMAR/TLMS_ITINFOTECH.git
+7. git push -u origin main
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TROUBLESHOOTING
+═════════════════════════════════════════════════════════════════════════
+
+Problem: "fatal: 'origin' does not appear to be a 'git' repository"
+Solution:
+  Make sure you're in the project directory:
+  cd "d:\PROJECT\Typing Learning Managment System IT INFOTECH"
+
+Problem: "Repository does not exist"
+Solution:
+  Make sure repository is created on GitHub:
+  https://github.com/new
+  Create repo: TLMS_ITINFOTECH
+
+Problem: "Already exists on remote"
+Solution:
+  Repository has files. That's OK!
+  Try: git push -f origin main (force push)
+
+Problem: Token expired
+Solution:
+  Generate a new token:
+  https://github.com/settings/tokens
+  Update remote: git remote set-url origin ...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+VERIFY SUCCESS
+═════════════════════════════════════════════════════════════════════════
+
+After push, check:
+✅ Visit: https://github.com/DHRUVIT2312PARMAR/TLMS_ITINFOTECH
+✅ See all files and folders uploaded
+✅ See commit message: "Initial commit: MERN stack project..."
+
+═════════════════════════════════════════════════════════════════════════

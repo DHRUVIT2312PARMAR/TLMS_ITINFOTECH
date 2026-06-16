@@ -1,0 +1,101 @@
+╔════════════════════════════════════════════════════════════════════════╗
+║    GitHub Push - Using Personal Access Token (QUICKEST METHOD)       ║
+╚════════════════════════════════════════════════════════════════════════╝
+
+FOLLOW THESE EXACT STEPS:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: CREATE PERSONAL ACCESS TOKEN
+═════════════════════════════════════════════════════════════════════════
+
+1. Open browser and go to:
+   https://github.com/settings/tokens
+
+2. Click "Generate new token" button (top right)
+
+3. Select "Generate new token (classic)"
+
+4. Fill in the form:
+   ├─ Token name: TLMS_ITINFOTECH
+   ├─ Expiration: 90 days (or more)
+   └─ Scopes: Select ONLY "repo" checkbox
+      ☑ repo (Full control of private repositories)
+
+5. Click "Generate token" button at bottom
+
+6. Copy the token that appears (it looks like: ghp_abc123xyz...)
+   ⚠️ SAVE THIS! You won't see it again!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 2: UPDATE GIT REMOTE
+═════════════════════════════════════════════════════════════════════════
+
+Open PowerShell in project directory and run:
+
+git remote set-url origin https://YOUR_TOKEN@github.com/DHRUVIT2312PARMAR/TLMS_ITINFOTECH.git
+
+EXAMPLE (replace YOUR_TOKEN):
+git remote set-url origin https://ghp_abc123xyz456789@github.com/DHRUVIT2312PARMAR/TLMS_ITINFOTECH.git
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 3: VERIFY REMOTE WAS UPDATED
+═════════════════════════════════════════════════════════════════════════
+
+Run:
+git remote -v
+
+You should see:
+origin  https://ghp_***@github.com/DHRUVIT2312PARMAR/TLMS_ITINFOTECH.git (fetch)
+origin  https://ghp_***@github.com/DHRUVIT2312PARMAR/TLMS_ITINFOTECH.git (push)
+
+(The token will show as *** in the output for security)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 4: PUSH TO GITHUB
+═════════════════════════════════════════════════════════════════════════
+
+Run:
+git push -u origin main
+
+You should see:
+Enumerating objects: ...
+Counting objects: 100% (...) 
+Writing objects: 100% (...) 
+Branch 'main' set up to track remote branch 'main' from 'origin'.
+
+✅ SUCCESS! Your project is now on GitHub!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 5: VERIFY ON GITHUB
+═════════════════════════════════════════════════════════════════════════
+
+Visit:
+https://github.com/DHRUVIT2312PARMAR/TLMS_ITINFOTECH
+
+You should see:
+✅ All your files uploaded
+✅ Commit message: "Initial commit: MERN stack project..."
+✅ All folders: client/, server/, Information/, etc.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+COMPLETE COMMAND SEQUENCE (Copy & Paste)
+═════════════════════════════════════════════════════════════════════════
+
+After generating token from Step 1, run these commands one by one:
+
+# Replace YOUR_TOKEN with your actual token
+git remote set-url origin https://YOUR_TOKEN@github.com/DHRUVIT2312PARMAR/TLMS_ITINFOTECH.git
+
+# Verify
+git remote -v
+
+# Push
+git push -u origin main
+
+═════════════════════════════════════════════════════════════════════════
