@@ -1,0 +1,309 @@
+╔════════════════════════════════════════════════════════════════════════╗
+║         IT INFOTECH SkillHub - Brevo SMTP Setup Guide                 ║
+╚════════════════════════════════════════════════════════════════════════╝
+
+Brevo (formerly Sendinblue) provides free email sending. Follow these steps:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: CREATE BREVO ACCOUNT
+═════════════════════════════════════════════════════════════════════════
+
+1. Go to https://www.brevo.com
+2. Click "Sign Up" (top right)
+3. Enter your details:
+   - Email address
+   - Password (strong one)
+   - Company name (optional)
+4. Click "Create my account"
+5. Check your email for verification link
+6. Click the verification link
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 2: VERIFY SENDER EMAIL
+════════════════════════════════════════════════════════════════════════
+
+After signing in:
+
+1. Go to: Settings → Senders & IP
+   (or click "Senders" in left menu)
+
+2. Click "Add a new sender"
+
+3. Enter sender information:
+   - From name: "IT INFOTECH SkillHub"
+   - Email address: your-email@gmail.com
+   - Reply-to (optional): same email
+
+4. Click "Create"
+
+5. Brevo will send verification email
+   - Check your email inbox
+   - Click verification link
+   - Your sender is now verified
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 3: GET SMTP CREDENTIALS
+═════════════════════════════════════════════════════════════════════════
+
+1. Go to: Settings → SMTP & API
+   (or click "SMTP & API" in left menu)
+
+2. Find the SMTP section and look for:
+
+   SMTP Settings:
+   ├─ SMTP Server: smtp-relay.brevo.com
+   ├─ Port: 587
+   ├─ Encryption: TLS (recommended)
+   ├─ Username: your-email@gmail.com (or your Brevo account email)
+   └─ Password: Click "Generate SMTP password"
+
+3. To generate SMTP password:
+   - Click "Generate SMTP password" button
+   - A password will be created (copy it!)
+   - This is different from your account password
+
+4. Copy all these details:
+   - SMTP Server: smtp-relay.brevo.com
+   - Port: 587
+   - Username: your-email@gmail.com
+   - Password: (the generated one)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 4: UPDATE .env FILE
+════════════════════════════════════════════════════════════════════════
+
+Update your server/.env file:
+
+Before:
+───────
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your_email@gmail.com
+SMTP_PASSWORD=your_app_password
+SMTP_FROM=noreply@itinfotech.in
+
+After:
+──────
+SMTP_HOST=smtp-relay.brevo.com
+SMTP_PORT=587
+SMTP_USER=your-email@gmail.com
+SMTP_PASSWORD=your_generated_brevo_password
+SMTP_FROM=IT INFOTECH SkillHub <your-email@gmail.com>
+
+Example:
+────────
+SMTP_HOST=smtp-relay.brevo.com
+SMTP_PORT=587
+SMTP_USER=dhruvit@gmail.com
+SMTP_PASSWORD=xyz1234567890abc
+SMTP_FROM=IT INFOTECH SkillHub <dhruvit@gmail.com>
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 5: VERIFY SETUP (OPTIONAL)
+═════════════════════════════════════════════════════════════════════════
+
+To test your SMTP settings without code:
+
+1. In Brevo dashboard, go to: Tools → Email Tester
+
+2. Enter:
+   - To email: your test email
+   - Subject: "Test Email"
+   - Content: "This is a test"
+
+3. Click "Send test email"
+
+4. Check your email inbox within 1 minute
+
+If you receive the email, your SMTP is working correctly!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 6: CREATE EMAIL CONTROLLER (OPTIONAL)
+════════════════════════════════════════════════════════════════════════
+
+Create server/src/utils/emailService.js with this code:
+
+───────────────────────────────────────────────────────────────────────
+
+import nodemailer from 'nodemailer'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
+  secure: false,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD
+  }
+})
+
+export const sendWelcomeEmail = async (email, name) => {
+  try {
+    await transporter.sendMail({
+      from: process.env.SMTP_FROM,
+      to: email,
+      subject: 'Welcome to IT INFOTECH SkillHub',
+      html: `
+        <h1>Welcome ${name}!</h1>
+        <p>Thank you for signing up.</p>
+        <p>Start learning typing today!</p>
+        <a href="${process.env.FRONTEND_URL}/dashboard">Go to Dashboard</a>
+      `
+    })
+    console.log('✅ Welcome email sent to', email)
+  } catch (error) {
+    console.error('❌ Email error:', error)
+  }
+}
+
+export const sendCertificateEmail = async (email, name, certificateId) => {
+  try {
+    await transporter.sendMail({
+      from: process.env.SMTP_FROM,
+      to: email,
+      subject: 'Your IT INFOTECH Certificate',
+      html: `
+        <h1>Congratulations ${name}!</h1>
+        <p>You have earned a new certificate!</p>
+        <p>Certificate ID: ${certificateId}</p>
+        <a href="${process.env.FRONTEND_URL}/certificates">View Certificate</a>
+      `
+    })
+    console.log('✅ Certificate email sent to', email)
+  } catch (error) {
+    console.error('❌ Email error:', error)
+  }
+}
+
+───────────────────────────────────────────────────────────────────────
+
+Then use it in your controller:
+
+  import { sendWelcomeEmail } from '../utils/emailService.js'
+  
+  // After user signup
+  await sendWelcomeEmail(user.email, user.name)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BREVO PRICING & LIMITS
+══════════════════════════════════════════════════════════════════════════
+
+Free Plan:
+├─ 300 emails/day
+├─ Unlimited contacts
+├─ Basic templates
+└─ Perfect for testing
+
+Paid Plans:
+├─ Starter: Higher limits
+├─ Business: Advanced features
+└─ Enterprise: Custom
+
+For IT INFOTECH, free plan is enough to start!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TROUBLESHOOTING
+════════════════════════════════════════════════════════════════════════
+
+Problem: "Authentication failed"
+Solution:
+  • Check SMTP password is correct
+  • Generate new password if unsure
+  • Wait 1 minute after generating
+
+Problem: "Connection timed out"
+Solution:
+  • Check SMTP_HOST is: smtp-relay.brevo.com
+  • Check SMTP_PORT is: 587
+  • Check firewall isn't blocking SMTP
+
+Problem: "Email not received"
+Solution:
+  • Check spam folder
+  • Verify sender email is registered
+  • Check Brevo dashboard for delivery status
+
+Problem: "Invalid sender email"
+Solution:
+  • Go to Settings → Senders & IP
+  • Verify sender email is listed and verified
+  • Add new sender if needed
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SENDING LIMIT RESET
+═══════════════════════════════════════════════════════════════════════
+
+Daily limit of 300 emails resets at:
+  Midnight (00:00) UTC
+  5:30 AM IST (India Standard Time)
+  7:00 AM (adjusted for your timezone)
+
+Monitor usage in:
+  Dashboard → Contacts → Emails
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+EMAIL TEMPLATES (OPTIONAL)
+═════════════════════════════════════════════════════════════════════════
+
+Create in Brevo for professional emails:
+
+1. Go to: Tools → Templates
+2. Click "Create template"
+3. Choose "Blank template" or pre-made
+4. Design your email
+5. Save and use in campaigns
+
+Good for:
+├─ Welcome emails
+├─ Certificate notifications
+├─ Password reset
+├─ Batch notifications
+└─ Course announcements
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+QUICK CHECKLIST
+══════════════════════════════════════════════════════════════════════════
+
+□ Sign up at https://www.brevo.com
+□ Verify account email
+□ Add and verify sender email
+□ Generate SMTP password
+□ Update server/.env with credentials
+□ Save and close .env
+□ Restart server: npm run server
+□ Test email sending (optional)
+□ Ready to use!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+NEXT STEPS
+═════════════════════════════════════════════════════════════════════════
+
+1. ✅ Set up Brevo SMTP
+2. ⏳ Create email service (server/src/utils/emailService.js)
+3. ⏳ Add email sending to controllers
+4. ⏳ Test email notifications
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📞 SUPPORT
+
+Brevo Help: https://help.brevo.com
+Brevo Dashboard: https://app.brevo.com
+Documentation: https://developers.brevo.com
+
+═════════════════════════════════════════════════════════════════════════

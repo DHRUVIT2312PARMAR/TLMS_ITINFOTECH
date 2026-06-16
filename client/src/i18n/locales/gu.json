@@ -1,0 +1,72 @@
+{
+  "common": {
+    "appName": "IT INFOTECH SkillHub",
+    "tagline": "શીખો · પ્રેક્ટિસ કરો · પ્રમાણપત્ર મેળવો",
+    "login": "લૉગીન",
+    "signup": "સાઇન અપ",
+    "logout": "લૉગ આઉટ",
+    "profile": "પ્રોફાઇલ",
+    "settings": "સેટિંગ્સ",
+    "dashboard": "ડેશબોર્ડ",
+    "home": "હોમ",
+    "about": "વિશે",
+    "contact": "સંપર્ક",
+    "save": "સાચવો",
+    "cancel": "રદ કરો",
+    "delete": "કાઢી નાખો",
+    "edit": "સંપાદિત કરો",
+    "loading": "લોડ થઇ રહ્યું છે...",
+    "error": "ભૂલ",
+    "success": "સફળતા",
+    "warning": "ચેતવણી",
+    "info": "માહિતી"
+  },
+  "auth": {
+    "welcome": "IT INFOTECH SkillHub માં આપનું સ્વાગત છે",
+    "email": "ઈમેલ",
+    "password": "પાસવર્ડ",
+    "confirmPassword": "પાસવર્ડ નક્કી કરો",
+    "name": "સંપૂર્ણ નામ",
+    "forgotPassword": "પાસવર્ડ ભૂલી ગયા છો?",
+    "rememberMe": "મને યાદ રાખો",
+    "dontHaveAccount": "ખાતું નથી?",
+    "alreadyHaveAccount": "પહેલેથી ખાતું છે?"
+  },
+  "modules": {
+    "computerFundamentals": "કોમ્પ્યુટર ફાઉન્ડેશન",
+    "keyboardMastery": "કીબોર્ડ માસ્ટરી",
+    "typingSkills": "ટાઇપિંગ કૌશલ્ય",
+    "speedTyping": "ઝડપ ટાઇપિંગ",
+    "professionalMaster": "વ્યાવસાયિક ટાઇપિંગ માસ્ટર",
+    "officeProductivity": "ઓફિસ પ્રોડક્ટિવિટી"
+  },
+  "typing": {
+    "startTest": "પરીક્ષણ શરૂ કરો",
+    "stopTest": "પરીક્ષણ બંધ કરો",
+    "wpm": "મિનિટ દીઠ શબ્દો",
+    "accuracy": "ચોક્કસતા",
+    "errors": "ભૂલો",
+    "time": "સમય",
+    "results": "પરિણામો",
+    "tryAgain": "ફરી પ્રયાસ કરો",
+    "submit": "સબમિટ કરો"
+  },
+  "gamification": {
+    "xp": "અનુભવ બિંદુઓ",
+    "level": "સ્તર",
+    "badge": "બેજ",
+    "coins": "સિક્કાઓ",
+    "streak": "સ્ટ્રીક",
+    "leaderboard": "લીડરબોર્ડ",
+    "achievements": "સાધનો"
+  },
+  "certificates": {
+    "certificate": "પ્રમાણપત્ર",
+    "certificateId": "પ્રમાણપત્ર ID",
+    "issuedDate": "જારી તારીખ",
+    "verify": "પ્રમાણપત્ર ચકાસો",
+    "download": "પ્રમાણપત્ર ડાઉનલોડ કરો",
+    "share": "પ્રમાણપત્ર શેર કરો",
+    "view": "પ્રમાણપત્ર જુઓ"
+  }
+}

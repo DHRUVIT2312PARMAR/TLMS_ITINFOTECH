@@ -1,0 +1,72 @@
+{
+  "common": {
+    "appName": "IT INFOTECH SkillHub",
+    "tagline": "सीखें · अभ्यास करें · प्रमाणपत्र प्राप्त करें",
+    "login": "लॉगिन",
+    "signup": "साइन अप",
+    "logout": "लॉग आउट",
+    "profile": "प्रोफाइल",
+    "settings": "सेटिंग्स",
+    "dashboard": "डैशबोर्ड",
+    "home": "होम",
+    "about": "के बारे में",
+    "contact": "संपर्क",
+    "save": "सहेजें",
+    "cancel": "रद्द करें",
+    "delete": "हटाएं",
+    "edit": "संपादित करें",
+    "loading": "लोड हो रहा है...",
+    "error": "त्रुटि",
+    "success": "सफलता",
+    "warning": "चेतावनी",
+    "info": "जानकारी"
+  },
+  "auth": {
+    "welcome": "IT INFOTECH SkillHub में आपका स्वागत है",
+    "email": "ईमेल",
+    "password": "पासवर्ड",
+    "confirmPassword": "पासवर्ड की पुष्टि करें",
+    "name": "पूरा नाम",
+    "forgotPassword": "पासवर्ड भूल गए?",
+    "rememberMe": "मुझे याद रखें",
+    "dontHaveAccount": "खाता नहीं है?",
+    "alreadyHaveAccount": "पहले से खाता है?"
+  },
+  "modules": {
+    "computerFundamentals": "कंप्यूटर मूल बातें",
+    "keyboardMastery": "कीबोर्ड महारत",
+    "typingSkills": "टाइपिंग कौशल",
+    "speedTyping": "गति टाइपिंग",
+    "professionalMaster": "व्यावसायिक टाइपिंग मास्टर",
+    "officeProductivity": "कार्यालय उत्पादकता"
+  },
+  "typing": {
+    "startTest": "परीक्षण शुरू करें",
+    "stopTest": "परीक्षण बंद करें",
+    "wpm": "प्रति मिनट शब्द",
+    "accuracy": "सटीकता",
+    "errors": "त्रुटियां",
+    "time": "समय",
+    "results": "परिणाम",
+    "tryAgain": "फिर से कोशिश करें",
+    "submit": "जमा करें"
+  },
+  "gamification": {
+    "xp": "अनुभव बिंदु",
+    "level": "स्तर",
+    "badge": "बैज",
+    "coins": "सिक्के",
+    "streak": "स्ट्रीक",
+    "leaderboard": "लीडरबोर्ड",
+    "achievements": "उपलब्धियां"
+  },
+  "certificates": {
+    "certificate": "प्रमाणपत्र",
+    "certificateId": "प्रमाणपत्र ID",
+    "issuedDate": "जारी तारीख",
+    "verify": "प्रमाणपत्र सत्यापित करें",
+    "download": "प्रमाणपत्र डाउनलोड करें",
+    "share": "प्रमाणपत्र साझा करें",
+    "view": "प्रमाणपत्र देखें"
+  }
+}

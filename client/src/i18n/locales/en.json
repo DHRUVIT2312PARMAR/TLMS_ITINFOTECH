@@ -1,0 +1,72 @@
+{
+  "common": {
+    "appName": "IT INFOTECH SkillHub",
+    "tagline": "Learn · Practice · Get Certified",
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout",
+    "profile": "Profile",
+    "settings": "Settings",
+    "dashboard": "Dashboard",
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information"
+  },
+  "auth": {
+    "welcome": "Welcome to IT INFOTECH SkillHub",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "name": "Full Name",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember me",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?"
+  },
+  "modules": {
+    "computerFundamentals": "Computer Fundamentals",
+    "keyboardMastery": "Keyboard Mastery",
+    "typingSkills": "Typing Skills",
+    "speedTyping": "Speed Typing",
+    "professionalMaster": "Professional Typing Master",
+    "officeProductivity": "Office Productivity"
+  },
+  "typing": {
+    "startTest": "Start Test",
+    "stopTest": "Stop Test",
+    "wpm": "Words Per Minute",
+    "accuracy": "Accuracy",
+    "errors": "Errors",
+    "time": "Time",
+    "results": "Results",
+    "tryAgain": "Try Again",
+    "submit": "Submit"
+  },
+  "gamification": {
+    "xp": "Experience Points",
+    "level": "Level",
+    "badge": "Badge",
+    "coins": "Coins",
+    "streak": "Streak",
+    "leaderboard": "Leaderboard",
+    "achievements": "Achievements"
+  },
+  "certificates": {
+    "certificate": "Certificate",
+    "certificateId": "Certificate ID",
+    "issuedDate": "Issued Date",
+    "verify": "Verify Certificate",
+    "download": "Download Certificate",
+    "share": "Share Certificate",
+    "view": "View Certificate"
+  }
+}

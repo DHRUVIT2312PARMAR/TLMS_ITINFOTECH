@@ -1,0 +1,259 @@
+╔════════════════════════════════════════════════════════════════════════╗
+║           IT INFOTECH SkillHub - MongoDB Setup Guide                  ║
+╚════════════════════════════════════════════════════════════════════════╝
+
+MongoDB has been integrated into your project! Here's how to set it up:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 WHAT'S BEEN ADDED:
+
+✅ Database Models (6 files):
+   • User.js                - User accounts & profiles
+   • Module.js              - Learning modules
+   • TestResult.js          - Test scores & results
+   • Certificate.js         - User certificates
+   • Achievement.js         - Badges & achievements
+   • Leaderboard.js         - Rankings & statistics
+   • Batch.js               - Class batches (institutes)
+
+✅ Authentication Controller:
+   • authController.js      - Signup, Login, Profile management
+
+✅ Database Seeding:
+   • seedDatabase.js        - Sample data for testing
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 SETUP OPTIONS:
+
+Choose one of the following:
+
+OPTION 1: Local MongoDB (Recommended for Development)
+═══════════════════════════════════════════════════════════════
+
+Step 1: Install MongoDB Community Edition
+  Windows:  Download from https://www.mongodb.com/try/download/community
+  macOS:    brew install mongodb-community
+  Linux:    sudo apt-get install -y mongodb
+
+Step 2: Start MongoDB
+  Windows:  mongod
+  macOS:    brew services start mongodb-community
+  Linux:    sudo systemctl start mongod
+
+Step 3: Verify Connection
+  mongosh
+  (should open MongoDB shell without errors)
+
+Step 4: Update server/.env
+  MONGODB_URI=mongodb://localhost:27017/tlms_itinfotech
+
+Step 5: Seed Database
+  npm run seed (in server directory)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OPTION 2: MongoDB Atlas (Cloud Database - Recommended for Production)
+═════════════════════════════════════════════════════════════════════
+
+Step 1: Create MongoDB Atlas Account
+  Visit: https://www.mongodb.com/cloud/atlas
+  Click "Sign Up"
+  Enter your details
+  Verify email
+
+Step 2: Create Cluster
+  Click "Create Cluster"
+  Choose Free Tier (M0)
+  Select your region (Asia-South recommended for India)
+  Click "Create"
+  Wait 5-10 minutes for cluster to deploy
+
+Step 3: Create Database User
+  Go to "Security" → "Database Access"
+  Click "Add New Database User"
+  Username: tlms_user
+  Password: Create a strong password
+  Click "Add User"
+
+Step 4: Get Connection String
+  Go to "Clusters" → "Connect"
+  Choose "Connect your application"
+  Copy connection string
+  It looks like: mongodb+srv://user:password@cluster.mongodb.net/dbname
+
+Step 5: Setup IP Whitelist
+  Go to "Security" → "Network Access"
+  Click "Add IP Address"
+  Click "Allow Access from Anywhere" (for development)
+  Click "Confirm"
+
+Step 6: Update server/.env
+  MONGODB_URI=mongodb+srv://tlms_user:YOUR_PASSWORD@cluster.mongodb.net/tlms_itinfotech
+
+  Replace:
+  • YOUR_PASSWORD with your database user password
+  • cluster with your cluster name
+
+Step 7: Seed Database
+  npm run seed (in server directory)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 REQUIRED ENVIRONMENT VARIABLES:
+
+server/.env should contain:
+
+PORT=5000
+NODE_ENV=development
+MONGODB_URI=mongodb://localhost:27017/tlms_itinfotech
+JWT_SECRET=your_super_secret_jwt_key_change_in_production_min_32_chars
+JWT_EXPIRE=7d
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+RAZORPAY_KEY_ID=your_key_id
+RAZORPAY_KEY_SECRET=your_key_secret
+FRONTEND_URL=http://localhost:3000
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 HOW TO RUN:
+
+Step 1: Make sure MongoDB is running
+  Local:  mongod (in separate terminal)
+  Cloud:  Already running (no action needed)
+
+Step 2: Install dependencies (if not already done)
+  npm install --legacy-peer-deps
+
+Step 3: Seed the database with sample data
+  npm run seed
+
+  Output should show:
+  ✅ Connected to MongoDB
+  ✅ Cleared existing data
+  ✅ Created 6 modules
+  ✅ Created 5 users
+  ✅ Created leaderboard entries
+  ✅ Database seeded successfully!
+
+Step 4: Start the servers
+  npm run dev
+
+Step 5: Test in browser
+  Frontend: http://localhost:3000
+  Backend:  http://localhost:5000/api/health
+
+Step 6: Try logging in with sample user
+  Email: dhruvit@itinfotech.in
+  Password: Test@123
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 VERIFY DATABASE CONNECTION:
+
+Test Signup API:
+  curl -X POST http://localhost:5000/api/auth/signup \
+    -H "Content-Type: application/json" \
+    -d '{"name":"Test User","email":"test@gmail.com","password":"Test@123"}'
+
+Expected Response:
+  {
+    "success": true,
+    "user": {
+      "id": "mongo_user_id",
+      "name": "Test User",
+      "email": "test@gmail.com",
+      "role": "student"
+    },
+    "token": "jwt_token_here"
+  }
+
+Test Login API:
+  curl -X POST http://localhost:5000/api/auth/login \
+    -H "Content-Type: application/json" \
+    -d '{"email":"test@gmail.com","password":"Test@123"}'
+
+Expected Response: Same as signup with token
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 DATABASE COLLECTIONS CREATED:
+
+1. users           - Student/instructor accounts
+2. modules         - Learning modules (6 modules seeded)
+3. testresults     - Typing test scores
+4. certificates    - Earned certificates
+5. achievements    - Badges and achievements
+6. leaderboards    - User rankings
+7. batches         - Class batches for institutes
+
+Sample data seeded:
+• 5 users with different roles
+• 6 learning modules
+• Leaderboard entries for all users
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ TROUBLESHOOTING:
+
+Problem: "MongoDB connection failed"
+Solution:
+  • Make sure MongoDB is running: mongod
+  • Check MONGODB_URI in .env
+  • Verify localhost:27017 is accessible
+
+Problem: "ECONNREFUSED 127.0.0.1:27017"
+Solution:
+  • MongoDB not running
+  • Run: mongod (local) or check MongoDB Atlas status (cloud)
+
+Problem: "E11000 duplicate key error"
+Solution:
+  • Run: npm run seed
+  • This clears old data and reseeds
+
+Problem: Authentication endpoint still returns placeholder
+Solution:
+  • Clear node_modules cache
+  • Restart server: npm run server
+  • Check if authController is imported correctly
+
+Problem: Can't connect to MongoDB Atlas
+Solution:
+  • Verify username and password are correct
+  • Check IP whitelist (add your current IP)
+  • Ensure database name is correct in connection string
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 WHAT'S NEXT:
+
+1. ✅ MongoDB models created
+2. ✅ Authentication implemented
+3. ✅ Sample data seeded
+4. ⏳ Implement remaining controllers (modules, tests, certificates)
+5. ⏳ Test all API endpoints
+6. ⏳ Deploy to production
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📞 NEED HELP?
+
+Common Commands:
+  npm run seed          - Seed database with sample data
+  npm run dev           - Start development servers
+  npm run server        - Start backend only
+  npm run client        - Start frontend only
+
+Check logs at:
+  Terminal 4 (Backend)
+  Terminal 5 (Frontend)
+
+═══════════════════════════════════════════════════════════════════════════
+
+✅ MongoDB is now ready! Follow the setup steps above to get started.
+
+═══════════════════════════════════════════════════════════════════════════
